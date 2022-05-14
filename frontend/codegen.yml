@@ -1,0 +1,18 @@
+overwrite: true
+schema: 'http://hasura:8080/v1/graphql'
+# headers:
+#   x-hasura-admin-secret: 'secret'
+documents:
+  - 'graphql/**/*.graphqls'
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+generates:
+  generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
